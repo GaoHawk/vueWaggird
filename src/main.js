@@ -9,10 +9,18 @@ import 'font-awesome/css/font-awesome.min.css'
 import VueRouter from 'vue-router'
 import store from './vuex/store'
 import Vuex from 'vuex'
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
+import Mock from './mock'
+Mock.bootstrap();
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 Vue.use(Vuex)
+
+NProgress.configure({
+  showSpinner: false
+});
 
 router.beforeEach((to, from, next) => {
   //NProgress.start();
