@@ -30,6 +30,12 @@ export const batchRemoveUser = params => {
   });
 };
 
+export const filterWithSex = params => {
+  return axios.get(`${base}/user/withSex`, {
+    params: params
+  })
+}
+
 export const editUser = params => {
   return axios.get(`${base}/user/edit`, {
     params: params

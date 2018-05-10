@@ -23,7 +23,14 @@
 			</el-table-column>
 			<el-table-column prop="name" label="姓名" width="120" sortable>
 			</el-table-column>
-			<el-table-column prop="sex" label="性别" width="100" :formatter="formatSex" sortable>
+      <el-table-column
+        prop="sex"
+        label="性别"
+        width="100"
+        :formatter="formatSex"
+        sortable
+        :filters="[{text: '男', value: 1}, {text: '女', value: 0}]"
+        :filter-method="filterHandler">
 			</el-table-column>
 			<el-table-column prop="age" label="年龄" width="100" sortable>
 			</el-table-column>
@@ -123,9 +130,11 @@ import {
   getUserListPage,
   removeUser,
   batchRemoveUser,
+  filterWithSex,
   editUser,
   addUser
 } from "@/api/api";
+
 export default {
   data() {
     return {
@@ -199,6 +208,12 @@ export default {
           }
         });
       });
+    },
+    // 筛选
+    filterHandler: function(value, row, column) {
+      console.log(value);
+      const property = column["property"];
+      return row[property] === value;
     },
     //删除
     handleDel: function(index, row) {

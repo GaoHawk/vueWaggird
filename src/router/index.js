@@ -12,6 +12,7 @@ import Page4 from '@/views/nav2/Page4'
 import Page5 from '@/views/nav2/Page5'
 import Page6 from '@/views/nav3/Page6'
 import echarts from '@/views/charts/echarts'
+import Nav1 from '@/views/nav1'
 
 Vue.use(Router)
 
@@ -23,80 +24,117 @@ export default new Router({
       hidden: true
     },
     {
+      path: '/',
+      redirect: {
+        path: '/login',
+      },
+    },
+    {
       path: '/404',
       component: NotFound,
       name: '',
       hidden: true
     },
     {
-      path: '/',
-      name: '导航一',
+      path: '/1',
+      name: 'Top',
       iconCls: 'el-icon-message',
       component: Home,
-      children: [{
-          path: '/main',
-          component: Main,
-          name: '主页',
-          hidden: true
-        },
-        {
-          path: "/form",
-          component: Form,
-          name: 'Form'
-        },
-        {
-          path: '/table',
-          component: Table,
-          name: "列表"
-        }
-      ]
-    },
-    {
-      path: '/',
-      component: Home,
-      name: "导航二",
-      iconCls: 'fa fa-id-card-o',
-      children: [{
-          path: '/page4',
-          component: Page4,
-          name: '页面4'
-        },
-        {
-          path: '/page5',
-          component: Page5,
-          name: '页面5'
-        }
-      ]
-    },
-    {
-      path: '/',
-      component: Home,
-      name: "",
-      iconCls: 'fa fa-address-card',
-      leaf: true,
-      children: [{
-        path: '/page6',
-        component: Page6,
-        name: '导航三'
-      }]
-    },
-    {
-      path: '/',
-      component: Home,
-      name: 'Charts',
-      iconCls: 'fa fa-bar-chart',
-      children: [{
-        path: '/echarts',
-        component: echarts,
-        name: 'echarts'
-      }]
-    },
-    {
-      path: '*',
-      hidden: true,
       redirect: {
-        path: '/404'
-      }
-    }
+        name: '导航一'
+      },
+      children: [{
+          path: '/nav1',
+          name: '导航一',
+          iconCls: 'el-icon-message',
+          component: Nav1,
+          redirect: {
+            name: 'page4'
+          },
+          children: [{
+              path: '/1/Page4',
+              name: 'page4',
+              component: Page4
+            },
+            {
+              path: '/main',
+              component: Main,
+              name: '主页',
+              hidden: true
+            },
+            {
+              path: '/1/table',
+              component: Table,
+              name: 'Table'
+            },
+
+          ]
+        },
+        {
+          path: '/nav2',
+          name: '导航二',
+          iconCls: 'fa fa-id-card-o',
+          component: Nav1,
+          redirect: {
+            name: 'page5'
+          },
+          children: [{
+            path: '/1/Page5',
+            name: 'page5',
+            component: Page5
+          }]
+        }
+
+      ]
+    },
+
+    {
+      path: '/2',
+      name: 'Top2',
+      component: Home,
+      redirect: {
+        name: '导航三'
+      },
+      children: [{
+          path: '/nav1',
+          name: '导航三',
+          iconCls: 'el-icon-message',
+          component: Nav1,
+          redirect: {
+            path: '/2/Page4'
+          },
+          children: [{
+              path: '/2/Page4',
+              name: 'page4',
+              component: Page4
+            }
+
+
+          ]
+        },
+        {
+          path: '/nav2',
+          name: '导航四',
+          iconCls: 'fa fa-id-card-o',
+          component: Nav1,
+          redirect: {
+            path: '/2/Page5'
+          },
+          children: [{
+            path: '/2/Page5',
+            name: 'page5',
+            component: Page5
+          }]
+        }
+
+      ]
+    },
+    // {
+    //   path: '*',
+    //   hidden: true,
+    //   redirect: {
+    //     path: '/404'
+    //   }
+    // }
   ]
 })
