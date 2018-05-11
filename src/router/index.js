@@ -57,7 +57,7 @@ export default new Router({
               component: Page4
             },
             {
-              path: '/main',
+              path: '/1/main',
               component: Main,
               name: '主页',
               hidden: true

@@ -25,6 +25,17 @@ NProgress.configure({
 router.beforeEach((to, from, next) => {
   //NProgress.start();
   console.log(to);
+  console.log(from);
+  console.log(store);
+  let top1 = from.path.slice(0, 2)
+  let top2 = to.path.slice(0, 2)
+  if (top1 == top2) {
+    console.log(top2)
+  } else {
+    store.commit('RESETHIS')
+  }
+  let nextPath = to.name;
+  store.commit('ADDTAG', nextPath)
   next()
 })
 

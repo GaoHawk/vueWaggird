@@ -26,7 +26,7 @@
 					<i class="fa fa-align-justify"></i>
 				</div>
        </el-col>
-        <el-col :span="16">
+        <el-col :span="16" style="white-space:nowrap;">
           <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="selectPanel"
            background-color="#20a0ff"
            text-color="#fff"
@@ -58,12 +58,19 @@
       <div class="grid-content">
 
           <div class="tabs">
-            <div class="customTag" v-for="tag in dynamicTags" @click="clickTag(tag)" :key="tag" style="display:inline;">
+            <div class="customTag" v-for="(tag,index) in dynamicTags" @click="clickTag(tag)" :key="tag" style="display:inline;">
               <el-tag
                 :key="tag"
                 closable
                 :disable-transitions="false"
-                @close="closeTag(tag)">
+                @close="closeTag(tag)" v-if="!(activeTag == tag)" type="info">
+                {{tag}}
+              </el-tag>
+                 <el-tag
+                :key="tag"
+                closable
+                :disable-transitions="false"
+                @close="closeTag(tag)" v-else >
                 {{tag}}
               </el-tag>
             </div>
@@ -163,6 +170,7 @@ body > .el-container {
 </style>
 <script>
 import defaultAvatar from "../../static/card.jpg";
+import { mapState } from "vuex";
 export default {
   data() {
     return {
@@ -173,16 +181,25 @@ export default {
       currentOptions: "",
       activeIndex: "",
       power: 0,
-      dynamicTags: ["标签一", "标签二", "标签三"]
+      dynamicTags: ["标签一", "标签二", "标签三"],
+      activeTag: "page4"
     };
+  },
+  computed: {
+    // ...mapGetters(["setTableColumns", "getPageInfo", "getAjaxTableData"]),
+    ...mapState({
+      hisPath: "history"
+    })
   },
   methods: {
     clickTag(tag) {
       console.log(tag);
+      this.activeTag = tag;
       this.$router.push({ name: tag });
     },
     closeTag(tag) {
-      this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
+      // this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
+      this.$store.commit("REMOVETAG", tag);
     },
     handleOpen(key, keyPath) {
       console.log(key, keyPath);
@@ -221,6 +238,7 @@ export default {
         .catch(() => {});
     }
   },
+
   mounted() {
     let current = this.$router.history.current.path;
     this.currentPath = current.slice(0, 2);
@@ -237,17 +255,7 @@ export default {
       }
     }
 
-    let nameGroup = [];
-
-    //  设置默认组
-    for (let j = 0; j < defGroup.children.length; j++) {
-      for (let h = 0; h < defGroup.children[j].children.length; h++) {
-        let child = defGroup.children[j].children[h];
-        nameGroup.push(child.name);
-      }
-    }
-    console.log(nameGroup);
-    this.dynamicTags = nameGroup;
+    this.dynamicTags = this.hisPath;
     var user = sessionStorage.getItem("user");
 
     if (user) {

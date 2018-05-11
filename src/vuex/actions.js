@@ -9,3 +9,9 @@ export const decrement = ({
 }) => {
   commit('DECREMENT')
 }
+
+export const removeTag = ({
+  commit
+}, tag) => {
+  commit('REMOVETAG')
+}
