@@ -12,8 +12,11 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "ag-grid": "^17.1.1",
+    "ag-grid-vue": "^17.1.0",
     "axios": "^0.18.0",
     "axios-mock-adapter": "^1.15.0",
+    "echarts": "^4.1.0",
     "element-ui": "^2.3.7",
     "font-awesome": "^4.7.0",
     "md5": "^2.2.1",
