@@ -11,8 +11,9 @@ import user from '@/views/nav1/user'
 import Page4 from '@/views/nav2/Page4'
 import Page5 from '@/views/nav2/Page5'
 import Page6 from '@/views/nav3/Page6'
-import echarts from '@/views/charts/echarts'
 import Nav1 from '@/views/nav1'
+import echart from '@/views/charts/echarts'
+import agGrid from '@/views/grid/agGrid'
 
 Vue.use(Router)
 
@@ -82,6 +83,10 @@ export default new Router({
             path: '/1/Page5',
             name: 'page5',
             component: Page5
+          }, {
+            path: '/1/grid',
+            name: 'agGrid',
+            component: agGrid
           }]
         }
 
@@ -107,6 +112,10 @@ export default new Router({
               path: '/2/Page4',
               name: 'page4',
               component: Page4
+            }, {
+              path: '/2/chart',
+              name: 'Echart',
+              component: echart
             }
 
 
