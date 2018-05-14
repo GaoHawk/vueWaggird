@@ -2,7 +2,8 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import {
   LoginUsers,
-  Users
+  Users,
+  Role
 } from './data/user';
 let _Users = Users;
 
@@ -58,7 +59,6 @@ export default {
 
     //获取用户列表
     mock.onGet('/user/list').reply(config => {
-      debugger
       let {
         name
       } = config.params;
@@ -74,6 +74,41 @@ export default {
         }, 1000);
       });
     });
+    // 获取登录用户列表
+    mock.onGet('/loginUser/list').reply(config => {
+      let {
+        name
+      } = config.params;
+      let mockUsers = LoginUsers.filter(user => {
+        if (name && user.name.indexOf(name) == -1) return false;
+        return true;
+      });
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve([200, {
+            users: mockUsers
+          }]);
+        }, 1000);
+      })
+    })
+
+    // 获取角色列表
+    mock.onGet('/role/list').reply(config => {
+      let {
+        roleNum
+      } = config.params;
+      let mockRole = Role.filter(role => {
+        if (roleNum && role.role.indexOf(roleNum) == -1) return false;
+        return true;
+      })
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve([200, {
+            roler: mockRole
+          }])
+        }, 1000)
+      })
+    })
 
     //获取用户列表（分页）
     mock.onGet('/user/listpage').reply(config => {
@@ -182,6 +217,78 @@ export default {
       });
     });
 
+    //编辑登录用户
+    mock.onGet('/user/editUser').reply(config => {
+      let {
+        id,
+        username,
+        password,
+        avatar,
+        name
+      } = config.params;
+      LoginUsers.some(u => {
+        if (u.id === id) {
+          u.password = password;
+          u.avatar = avatar;
+          u.name = name;
+          return true
+        }
+      });
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve([200, {
+            code: 200,
+            msg: '用户修改成功'
+          }])
+        }, 500)
+      })
+    })
+
+    //用户添加角色
+    mock.onGet('/user/addRole').reply(config => {
+      let {
+        id,
+        role
+      } = config.params;
+      LoginUsers.some(u => {
+        if (u.id === id) {
+          u.role = role;
+          return true
+        }
+      });
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve([200, {
+            code: 200,
+            msg: '角色添加成功'
+          }])
+        }, 500)
+      })
+    })
+
+    // 角色添加菜单
+    mock.onGet('/role/addMenu').reply(config => {
+      let {
+        id,
+        roleName,
+        menu,
+      } = config.params;
+      Role.some(u => {
+        if (u.id === id) {
+          u.roleName = roleName;
+          u.menu = menu
+          return true;
+        }
+      });
+      return new Promise((resolve, rejcet) => {
+        setTimeout(() => {
+          resolve([200, {
+            code: 200,
+            msg: '添加菜单成功'
+          }])
+        }, 500)
+      })
+    })
     //新增用户
     mock.onGet('/user/add').reply(config => {
       let {

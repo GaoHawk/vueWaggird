@@ -9,7 +9,8 @@ import 'font-awesome/css/font-awesome.min.css'
 import VueRouter from 'vue-router'
 import store from './vuex/store'
 import Vuex from 'vuex'
-
+import "../node_modules/ag-grid/dist/styles/ag-grid.css";
+import "../node_modules/ag-grid/dist/styles/ag-theme-balham.css";
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 import Mock from './mock'

@@ -209,6 +209,7 @@ export default {
     },
     handleselect(key, keyPath) {
       console.log(key, keyPath);
+      this.activeTag = key;
       this.$router.push(key);
     },
     selectPanel(key, keyPath) {
@@ -266,7 +267,12 @@ export default {
       this.sysUserName = user.name || "张某某";
       this.sysUserAvatar = user.avatar || defaultAvatar;
     }
-    console.log(this);
+    console.log(this.$router);
+
+    // 取消 router 隐藏效果
+    let router = this.$router.options.routes[3];
+
+    // router.children[0].children[1].hidden = false;
   }
 };
 </script>
